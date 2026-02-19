@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PHISHING BLOCKED - 0Scam Shield</title>
+    <style>
+        :root {
+            --bg: #0f1218;
+            --surface: #1c212c;
+            --danger: #ef4444;
+            --safe: #2196F3;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --radius: 24px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: var(--surface);
+            padding: 48px;
+            border-radius: var(--radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .danger-ring {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); }
+        }
+
+        h1 {
+            color: var(--danger);
+            font-size: 2.5rem;
+            margin: 20px 0;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .icon-box {
+            color: var(--danger);
+            margin-bottom: 24px;
+        }
+
+        p.desc {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .url-banner {
+            background: #000;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--danger);
+            word-break: break-all;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            margin-bottom: 32px;
+            min-height: 1.4em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-label { font-size: 0.8rem; color: var(--text-dim); display: block; }
+        .stat-value { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .btn-safe {
+            background: var(--safe);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-safe:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover { color: var(--text); border-color: var(--text); }
+    </style>
+</head>
+<body>
+    <div class="danger-ring"></div>
+    <div class="container">
+        <div class="icon-box">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        </div>
+
+        <h1>Threat Neutralized</h1>
+        <p class="desc">0Scam AI detected a high-probability phishing attempt targeting your browser session.</p>
+        
+        <div class="url-banner" id="blocked-url">Validating...</div>
+        
+        <div class="grid">
+            <div class="stat-card">
+                <span class="stat-label">Security Risk</span>
+                <span id="risk-level" class="stat-value">PHISHING</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">AI Confidence</span>
+                <span id="confidence" class="stat-value">...</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-back" class="btn btn-safe">Go To Safety</button>
+            <button id="btn-bypass" class="btn btn-secondary">Unblock Site</button>
+        </div>
+    </div>
+
+    <!-- Link to Separate Script File for MV3 Compliance -->
+    <script src="blocked.js"></script>
+</body>
+</html>

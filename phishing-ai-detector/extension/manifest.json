@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "0Scam AI Phishing Protector",
+  "version": "1.1",
+  "description": "Real-time AI-powered phishing detection and blocking.",
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "storage",
+    "activeTab",
+    "scripting",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html", "blocked.js", "icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

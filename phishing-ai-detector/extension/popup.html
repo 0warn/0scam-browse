@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>0Scam Shield</title>
+    <style>
+        :root {
+            --bg: #0f1218;
+            --surface: #1c212c;
+            --accent: #7c4dff;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --radius: 16px;
+        }
+
+        body {
+            width: 350px;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Spread header and badge */
+            padding-bottom: 10px;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* The [OK] / [BLK] Badge in Popup Menu */
+        .toolbar-badge {
+            font-size: 0.8rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #555;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .badge-ok { background-color: var(--success); }
+        .badge-blk { background-color: var(--danger); }
+        .badge-warn { background-color: var(--warning); }
+
+        .shield-box {
+            background: linear-gradient(145deg, #2a2f3e, #1c212c);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .status-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            70% { transform: scale(1.4); opacity: 0; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .status-text {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .info-row:last-child { margin-bottom: 0; }
+        .label { color: var(--text-dim); }
+        .value { font-weight: 600; color: var(--text); }
+
+        .url-chip {
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            word-break: break-all;
+            margin-top: 10px;
+            border: 1px solid rgba(124, 77, 255, 0.2);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+
+        /* Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        .btn-refresh {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+        }
+
+        .btn-refresh:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-refresh:active { transform: scale(0.98); }
+
+        .safe { color: var(--success); }
+        .phishing { color: var(--danger); }
+        .suspicious { color: var(--warning); }
+        .pulse-safe { background: var(--success); }
+        .pulse-danger { background: var(--danger); }
+        .pulse-warn { background: var(--warning); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>0SCAM</h2>
+            <div id="toolbar-badge" class="toolbar-badge">SCAN</div>
+        </div>
+
+        <div class="shield-box">
+            <div id="pulse" class="status-pulse pulse-safe"></div>
+            <svg id="shield-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+        </div>
+
+        <div id="status-text" class="status-text safe">SYSTEM SECURE</div>
+
+        <div class="card">
+            <div class="info-row">
+                <span class="label">Detection</span>
+                <span id="classification-val" class="value safe">Legitimate</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Threat Level</span>
+                <span id="risk-val" class="value">Low</span>
+            </div>
+            <div class="info-row">
+                <span class="label">AI Confidence</span>
+                <span id="conf-val" class="value">99%</span>
+            </div>
+            <div id="url-display" class="url-chip">-</div>
+        </div>
+
+        <div class="control-group">
+            <span style="font-size: 0.9rem; font-weight: 500;">Active Shielding</span>
+            <label class="switch">
+                <input type="checkbox" id="protection-toggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <button id="refresh-btn" class="btn-refresh">REFRESH SCAN</button>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
